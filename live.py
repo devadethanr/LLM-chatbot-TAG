@@ -6,12 +6,20 @@ co = cohere.Client('ECmZASmuWPzS4Np9LEgveRZkD9RZ3GTaD3li6rmJ') # This is your tr
 import streamlit as st
 
 st.title("SynthBot")
-
+preamble_prompt = "Your name is synth bot. You're virtual asistant for JuriSynth an ai assistant for Syntheia corp"
+docs = [
+    {
+        "name": "Syntheia Workspace",
+        "desc": "Assistant for syntheia",
+    }
+]
 def cohereChat(prompt):
         lim_response = co.chat(
         # message="hi"
         model = "command",
         message = prompt,
+        preamble_override = preamble_prompt,
+        documents=docs,
         )
         return lim_response
 
