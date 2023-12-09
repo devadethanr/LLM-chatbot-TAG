@@ -5,7 +5,15 @@ co = cohere.Client('ECmZASmuWPzS4Np9LEgveRZkD9RZ3GTaD3li6rmJ') # This is your tr
 
 import streamlit as st
 
-st.title("Echo Bot")
+st.title("SynthBot")
+
+def cohereChat(prompt):
+        lim_response = co.chat(
+        # message="hi"
+        model = "command",
+        message = prompt,
+        )
+        return lim_response
 
 # Initialize chat history
 def init_state():
@@ -25,15 +33,14 @@ def main():
             st.markdown(prompt)
         # Add user message to chat history
         st.session_state.messages.append({"role": "user", "content": prompt})
+        lim_response = cohereChat(prompt)
+        response = f"{lim_response.text}"
 
-
+        #display assist controller
+        with st.chat_message("assistan"):
+            st.markdown(response)
+        st.session_state.messages.append({"role": "assistant", "content": response})
 #response check
-    lim_response = co.chat(
-        # message="hi"
-        model = "command",
-        message = "Hi",
-    )
-    print(lim_response)
     
     
     
